@@ -1,4 +1,4 @@
-package dto;
+package com.ship.projetoteste.cadastro.dto;
 
 import jakarta.validation.constraints.NotBlank;
 import lombok.Data;

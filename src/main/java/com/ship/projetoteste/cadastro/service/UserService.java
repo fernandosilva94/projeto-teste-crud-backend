@@ -1,13 +1,13 @@
-package service;
+package com.ship.projetoteste.cadastro.service;
 
-import dto.UserDTO;
+import com.ship.projetoteste.cadastro.dto.UserDTO;
 import jakarta.validation.Valid;
-import model.User;
+import com.ship.projetoteste.cadastro.model.User;
 import org.apache.velocity.exception.ResourceNotFoundException;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import repository.UserRepository;
+import com.ship.projetoteste.cadastro.repository.UserRepository;
 
 import java.util.List;
 import java.util.Optional;

@@ -1,6 +1,6 @@
-package repository;
+package com.ship.projetoteste.cadastro.repository;
 
-import model.User;
+import com.ship.projetoteste.cadastro.model.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
