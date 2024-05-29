@@ -7,7 +7,8 @@ import org.springframework.boot.test.context.SpringBootTest;
 class SistemaDeCadastroApplicationTests {
 
 	@Test
-	void contextLoads() {
+	void main() {
+		SistemaDeCadastroApplication.main(new String[] {});
 	}
 
 }

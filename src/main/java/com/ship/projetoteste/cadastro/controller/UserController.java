@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.*;
 import com.ship.projetoteste.cadastro.service.UserService;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/users")
@@ -31,6 +32,8 @@ public class UserController {
     @GetMapping(value = "/get-all")
     public ResponseEntity <List<User>> getAllUsers() {
         List<User> users = userService.getAllUsers();
+        List<UserDTO> userDTOS = users.stream().map(user -> new UserDTO())
+                                               .collect(Collectors.toList());
         return new ResponseEntity<>(users, HttpStatus.OK);
     }
     @GetMapping(value = "/{id}")
