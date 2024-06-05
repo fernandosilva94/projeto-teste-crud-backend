@@ -16,6 +16,7 @@ public class UserDTO {
     private String cpf;
 
     @NotBlank(message = "A senha não pode estar em branco")
-    @JsonIgnore
-    private String senha;
+    private String password;
+
+    private String role;
 }

@@ -6,6 +6,7 @@ import com.ship.projetoteste.cadastro.model.User;
 import org.apache.velocity.exception.ResourceNotFoundException;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import com.ship.projetoteste.cadastro.repository.UserRepository;
 
@@ -16,10 +17,12 @@ import java.util.Optional;
 public class UserService {
 
     private final UserRepository userRepository;
+    private final PasswordEncoder passwordEncoder;
 
     @Autowired
-    public UserService(UserRepository userRepository) {
+    public UserService(UserRepository userRepository, PasswordEncoder passwordEncoder) {
         this.userRepository = userRepository;
+        this.passwordEncoder = passwordEncoder;
     }
 
     public User addUser(@Valid UserDTO userDTO) {
@@ -31,6 +34,9 @@ public class UserService {
         }
         User user = new User();
         BeanUtils.copyProperties(userDTO, user);
+
+        user.setPassword(passwordEncoder.encode(userDTO.getPassword()));
+
         return userRepository.save(user);
     }
 
@@ -55,5 +61,9 @@ public class UserService {
             throw new ResourceNotFoundException("Usuário não encontrado");
         }
         userRepository.deleteById(userId);
+    }
+
+    public Optional<User> findUserByEmail(String email) {
+        return userRepository.findByEmail(email);
     }
 }
