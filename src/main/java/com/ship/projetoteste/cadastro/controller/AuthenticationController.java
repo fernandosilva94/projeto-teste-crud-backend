@@ -2,12 +2,8 @@ package com.ship.projetoteste.cadastro.controller;
 
 import com.ship.projetoteste.cadastro.config.JwtUtils;
 import com.ship.projetoteste.cadastro.dto.AuthenticationRequestDTO;
-import com.ship.projetoteste.cadastro.model.MyUserDetails;
-import com.ship.projetoteste.cadastro.model.User;
 import com.ship.projetoteste.cadastro.service.MyUserDetailsService;
-import com.ship.projetoteste.cadastro.service.UserService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -16,8 +12,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-
-import java.util.Optional;
 
 @RestController
 @RequestMapping("/auth")
@@ -34,7 +28,6 @@ public class AuthenticationController {
             authenticationManager.authenticate(
                     new UsernamePasswordAuthenticationToken(requestDTO.getEmail(), requestDTO.getPassword())
             );
-
             UserDetails userDetails = myUserDetailsService.loadUserByUsername(requestDTO.getEmail());
 
             if (userDetails != null) {

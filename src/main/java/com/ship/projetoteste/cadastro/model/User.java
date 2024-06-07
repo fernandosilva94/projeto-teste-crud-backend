@@ -1,19 +1,18 @@
 package com.ship.projetoteste.cadastro.model;
 
+import com.ship.projetoteste.cadastro.enums.Role;
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
-import org.hibernate.query.sqm.NodeBuilder;
-import org.springframework.boot.autoconfigure.elasticsearch.ElasticsearchConnectionDetails;
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
-import org.springframework.security.core.userdetails.UserDetails;
-
-import java.util.Collection;
-import java.util.Collections;
+import lombok.NoArgsConstructor;
 
 @Entity
 @Table(name = "usuario")
 @Data
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -23,5 +22,6 @@ public class User {
     private String cpf;
     @Column(name = "senha")
     private String password;
-    private String role;
+    @Enumerated(EnumType.STRING)
+    private Role role;
 }

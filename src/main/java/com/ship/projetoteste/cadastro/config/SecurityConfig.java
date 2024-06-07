@@ -44,13 +44,13 @@ public class SecurityConfig  {
                 .authorizeRequests()
                 .requestMatchers(HttpMethod.POST, "/users/add").permitAll()
                 .requestMatchers(HttpMethod.GET, "/users/{id}").permitAll()
-                .requestMatchers(HttpMethod.POST, "/auth/authenticate").permitAll() // permite todos os POSTs para /auth/** sem autenticação
+                .requestMatchers(HttpMethod.POST, "/auth/authenticate").permitAll()
                 .requestMatchers("/admin/**").hasRole("ADMIN")
                 .requestMatchers("/user/**").hasAnyRole("USER", "ADMIN")
-                .anyRequest().authenticated() // todas as outras solicitações precisam de autenticação
+                .anyRequest().authenticated()
                 .and()
                 .sessionManagement()
-                .sessionCreationPolicy(SessionCreationPolicy.STATELESS) // sem estado para sessões, JWT será usado
+                .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and()
                 .httpBasic();
         http.addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class);

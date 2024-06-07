@@ -1,6 +1,8 @@
 package com.ship.projetoteste.cadastro.service;
 
+import com.ship.projetoteste.cadastro.config.JwtUtils;
 import com.ship.projetoteste.cadastro.dto.UserDTO;
+import com.ship.projetoteste.cadastro.enums.Role;
 import jakarta.validation.Valid;
 import com.ship.projetoteste.cadastro.model.User;
 import org.apache.velocity.exception.ResourceNotFoundException;
@@ -19,10 +21,13 @@ public class UserService {
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
 
+    private final JwtUtils jwtUtils;
+
     @Autowired
-    public UserService(UserRepository userRepository, PasswordEncoder passwordEncoder) {
+    public UserService(UserRepository userRepository, PasswordEncoder passwordEncoder, JwtUtils jwtUtils) {
         this.userRepository = userRepository;
         this.passwordEncoder = passwordEncoder;
+        this.jwtUtils = jwtUtils;
     }
 
     public User addUser(@Valid UserDTO userDTO) {
@@ -36,6 +41,7 @@ public class UserService {
         BeanUtils.copyProperties(userDTO, user);
 
         user.setPassword(passwordEncoder.encode(userDTO.getPassword()));
+        user.setRole(Role.ROLE_USER);
 
         return userRepository.save(user);
     }
@@ -50,7 +56,7 @@ public class UserService {
 
     public User updateUser(Long userId, @Valid UserDTO userDTO) {
         User user = userRepository.findById(userId)
-                .orElseThrow(() -> new ResourceNotFoundException("Usuário não encontrado"));
+                .orElseThrow(() -> new RuntimeException("Usuário não encontrado"));
 
         BeanUtils.copyProperties(userDTO, user, "id");
         return userRepository.save(user);

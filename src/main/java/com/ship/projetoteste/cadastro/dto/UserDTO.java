@@ -1,6 +1,6 @@
 package com.ship.projetoteste.cadastro.dto;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.ship.projetoteste.cadastro.enums.Role;
 import jakarta.validation.constraints.NotBlank;
 import lombok.Data;
 
@@ -18,5 +18,5 @@ public class UserDTO {
     @NotBlank(message = "A senha não pode estar em branco")
     private String password;
 
-    private String role;
+    private Role role;
 }

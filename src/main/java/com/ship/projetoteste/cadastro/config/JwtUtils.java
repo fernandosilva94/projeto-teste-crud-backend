@@ -3,6 +3,9 @@ package com.ship.projetoteste.cadastro.config;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 
@@ -14,7 +17,10 @@ import java.util.function.Function;
 @Service
 public class JwtUtils {
 
-    private String SECRET_KEY = "secret";
+    @Value("${jwt.secret}")
+    private String SECRET_KEY;
+
+    private static final Logger logger = LoggerFactory.getLogger(JwtUtils.class);
 
     public String extractUsername(String token) {
         return extractClaim(token, Claims::getSubject);
@@ -42,9 +48,9 @@ public class JwtUtils {
     }
 
     private String createToken(Map<String, Object> claims, String subject) {
-
+        logger.info("VERIFICANDO SECRET_KEY ->" + SECRET_KEY);
         return Jwts.builder().setClaims(claims).setSubject(subject).setIssuedAt(new Date(System.currentTimeMillis()))
-                .setExpiration(new Date(System.currentTimeMillis() + 1000 * 60 * 2))
+                .setExpiration(new Date(System.currentTimeMillis() + 1000 * 60 * 40))
                 .signWith(SignatureAlgorithm.HS256, SECRET_KEY).compact();
     }
 
