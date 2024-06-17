@@ -43,7 +43,6 @@ public class SecurityConfig  {
                 .csrf().disable()
                 .authorizeRequests()
                 .requestMatchers(HttpMethod.POST, "/users/add").permitAll()
-                .requestMatchers(HttpMethod.GET, "/users/{id}").permitAll()
                 .requestMatchers(HttpMethod.POST, "/auth/authenticate").permitAll()
                 .requestMatchers("/admin/**").hasRole("ADMIN")
                 .requestMatchers("/user/**").hasAnyRole("USER", "ADMIN")

@@ -54,4 +54,10 @@ public class UserController {
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
+    @GetMapping(value = "/email/{email}")
+    public ResponseEntity<User> getUserByEmail(@PathVariable String email) {
+        User user = userService.findUserByEmail(email).orElseThrow(() -> new ResourceNotFoundException("email não encontrado"));
+        return new ResponseEntity<>(user, HttpStatus.OK);
+    }
+
 }
